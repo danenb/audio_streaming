@@ -68,8 +68,8 @@ then
 	amixer cset numid=3 1
 	
 	echo "Updating file permissions"
-	chmod +x home/pi/audio_streaming/network_connect
-	chmod +x home/pi/audio_streaming/write_interfaces
+	chmod +x ./network_connect
+	chmod +x ./write_interfaces
 	echo "www-data ALL=(ALL) NOPASSWD: /sbin/ifdown wlan0, /sbin/ifup wlan0, /sbin/reboot, /home/pi/audio_streaming/write_interfaces, service hostapd restart, service hostapd stop" >> /etc/sudoers
 	
 	echo "Configuring Crontab"
@@ -81,10 +81,10 @@ then
 	cp ./config-files/index.html /var/www
 	cp ./config-files/run_script.php /var/www
 
-
+	echo '***** Rebooting in 5 seconds *****'
     
-#    sleep 10
-#    reboot
+    sleep 5
+    reboot
     
 	exit 0
 
