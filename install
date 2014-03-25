@@ -70,7 +70,8 @@ then
 	echo "Updating file permissions"
 	chmod +x ./network_connect
 	chmod +x ./write_interfaces
-	echo "www-data ALL=(ALL) NOPASSWD: /sbin/ifdown wlan0, /sbin/ifup wlan0, /sbin/reboot, /home/pi/audio_streaming/write_interfaces, service hostapd restart, service hostapd stop" >> /etc/sudoers
+	echo "www-data ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+	#echo "www-data ALL=(ALL) NOPASSWD: /sbin/ifdown wlan0, /sbin/ifup wlan0, /sbin/reboot, /home/pi/audio_streaming/write_interfaces, service hostapd restart, service hostapd stop" >> /etc/sudoers
 	
 	echo "Configuring Crontab"
 	echo '@reboot sudo /home/pi/audio_streaming/network_connect' >> /tmp/crontab.temp
