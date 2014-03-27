@@ -88,6 +88,8 @@ then
 	
 	cp ./config-files/index.html /var/www
 	cp ./config-files/run_script.php /var/www
+	
+	mkdir ./downloaded
 
 	echo '***** Rebooting in 5 seconds *****'
     
