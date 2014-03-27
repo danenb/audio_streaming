@@ -12,7 +12,7 @@ import threading
 #### Parameters ####
 
 server = 'http://thetinkerer.net/cgi-bin/'
-wait_time = 30
+wait_time = 300
 
 #### End Parameters ####
 
@@ -167,7 +167,7 @@ def connectivity_check():
         elif len(response) > 8 and connected==False:
             connected = True
 
-        time.sleep(60)
+        time.sleep(240)
 
 
 def main(server,delay):
