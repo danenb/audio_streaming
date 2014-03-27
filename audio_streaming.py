@@ -116,23 +116,26 @@ def get_audio(url):
     global connected
 
     if connected==True:
-        request = urllib2.urlopen(url+'file_list.py')
-        response = request.read()
-        file_list = response.split(',')
-        if len(file_list) >0:
+        try:
+            request = urllib2.urlopen(url+'file_list.py')
+            response = request.read()
+            file_list = response.split(',')
+            if len(file_list) >0:
 
-            for i in range(0,len(file_list)):
-                if len(file_list[i])<4:
-                    continue
-                err_check = os.system('wget "'+url+file_list[i]+'" -P /downloaded/')
-                if err_check != 0:
-                    errorLog('Failed to download '+file_list[i])
-                else:
-                    purge_server(url+'purge_files.py',file_list[i])
-                    string = 'mv /downloaded/"'+file_list[i]+'" "'+str(datetime.datetime.now())[:19].replace(':','.')+'.mp3"'
-                    err_check = os.system(string)
-                    if err_check !=0:
-                        errorLog('Failed to rename '+file_list[i])
+                for i in range(0,len(file_list)):
+                    if len(file_list[i])<4:
+                        continue
+                    err_check = os.system('wget "'+url+file_list[i]+'" -P /downloaded/')
+                    if err_check != 0:
+                        errorLog('Failed to download '+file_list[i])
+                    else:
+                        purge_server(url+'purge_files.py',file_list[i])
+                        string = 'mv /downloaded/"'+file_list[i]+'" "'+str(datetime.datetime.now())[:19].replace(':','.')+'.mp3"'
+                        err_check = os.system(string)
+                        if err_check !=0:
+                            errorLog('Failed to rename '+file_list[i])
+        except URLError, err:
+            errorLog('Failed to connect to server: '+err)
 
 
 def purge_server(url,file_name):
@@ -155,16 +158,16 @@ def connectivity_check():
             response = 0
         if len(response) < 8 and connected==True:
             errorLog('No internet connection... Check again in 2 min')
-            time.sleep(120)
+            time.sleep(60)
             response = subprocess.check_output(['hostname','-I'])
             if len(response) < 8:
                 connected = False
                 errorLog('launching hotspot script')
                 os.system('sudo /home/pi/audio_streaming/network_check')
-        elif: len(response) > 8 and connected==False:
+        elif len(response) > 8 and connected==False:
             connected = True
 
-        time.sleep(600)
+        time.sleep(60)
 
 
 def main(server,delay):
@@ -190,11 +193,16 @@ GPIO.add_event_detect(11, GPIO.FALLING, callback=determine_action, bouncetime=10
 playing = False
 paused = False
 PID = 0
+connected = True
 
 print 'Initiating audio streaming utility'
 main = threading.Thread(target=main, args=(server,wait_time))
+network_check = threading.Thread(target=connectivity_check)
+network_check.start()
+sleep(10)
 main.start()
 main.join()
+network_check.join()
 
 print 'Exiting Program'
 GPIO.cleanup()

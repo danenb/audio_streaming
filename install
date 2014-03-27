@@ -42,25 +42,32 @@ then
 	
 
     echo "Installing hostapd and udhcpd"
-    apt-get -y -qq install hostapd # udhcpd
+    apt-get -y -qq install hostapd udhcpd
     
     echo "Copying hotspot configuration files"
 	
-#	cp ./config-files/udhcpd.conf /etc/udhcpd.conf
-#	cp ./config-files/udhcpd /etc/default
+	cp ./config-files/udhcpd.conf /etc/udhcpd.conf
+	cp ./config-files/udhcpd /etc/default
     
 	
     echo "Configuring interfaces"
-    cp ./config-files/interfaces /etc/network
+	if [ -f /etc/network/interfaces.wifi ]
+    then
+		echo "Wifi interface in place"
+	else
+		cp /etc/network/interfaces /etc/network/interfaces.wifi
+    fi
+
+    cp ./config-files/interfaces /etc/network/interfaces.hotspot
     
     cp ./config-files/hostapd.conf /etc/hostapd
     cp ./config-files/hostapd /etc/default
 
-#    cp ./config-files/sysctl.conf /etc
+    cp ./config-files/sysctl.conf /etc
 	
-#	cp ./config-files/iptables.ipv4.nat /etc
+	cp ./config-files/iptables.ipv4.nat /etc
     
-#    touch /var/lib/misc/udhcpd.leases
+    touch /var/lib/misc/udhcpd.leases
     
 	
 	echo "Configuring audio output"
