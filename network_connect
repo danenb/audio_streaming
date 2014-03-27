@@ -1,7 +1,8 @@
 #!/bin/bash
 _IP=$(hostname -I) || true
 echo $_IP
-if [ ! $_IP]
+
+if [ ! $_IP] || [ "$_IP" == "192.168.42.1 "]
   then
   service hostapd stop
   service udhcpd stop
@@ -18,8 +19,8 @@ if [ ! $_IP]
     ifdown wlan0
     sleep 2
     cp /etc/network/interfaces.hotspot /etc/network/interfaces
-    service hostapd restart &
-	service udhcpd restart &
+    service hostapd restart
+    service udhcpd restart
   fi
 fi
 
