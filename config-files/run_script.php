@@ -13,7 +13,7 @@ $success_msg = '<h3>Network Credentials:</h3>'
 	.'Password: '.$psk.'<br/><br/><br/>'
 	.'<h4>Connecting to the wireless network... This page may become unresponsive.</h4>';
 
-$cmd = "/home/pi/audio_streaming/write_interfaces '".$ssid."' '".$psk."' 2>&1";
+$cmd = "sudo /home/pi/audio_streaming/write_interfaces '".$ssid."' '".$psk."' 2>&1";
 exec($cmd,$rtrn,$success);
 
 if ($success!=0)
