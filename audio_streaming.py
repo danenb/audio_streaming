@@ -46,7 +46,7 @@ def play(arg1, arg2):
     global paused
     global PID
 
-    #Empty trash to avoid playing of old cached files:
+    #Empty trash to avoid playing old cached files:
     err_check = os.system('rm -rf ~/.local/share/Trash/files/*')
     err_check2 = os.system('rm -rf ~/.local/share/Trash/info/*')
 
@@ -199,7 +199,7 @@ print 'Initiating audio streaming utility'
 main = threading.Thread(target=main, args=(server,wait_time))
 network_check = threading.Thread(target=connectivity_check)
 network_check.start()
-sleep(10)
+time.sleep(10)
 main.start()
 main.join()
 network_check.join()
