@@ -163,7 +163,7 @@ def connectivity_check():
             if len(response) < 8:
                 connected = False
                 errorLog('launching hotspot script')
-                os.system('sudo /home/pi/audio_streaming/network_check')
+                os.system('sudo /home/pi/audio_streaming/network_connect')
         elif len(response) > 8 and connected==False:
             connected = True
 
