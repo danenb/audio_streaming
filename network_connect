@@ -3,11 +3,13 @@ _IP=$(hostname -I) || true
 echo $_IP
 if [ ! $_IP]
   then
+  service hostapd stop
+  service udhcpd stop
   cp /etc/network/interfaces.wifi /etc/network/interfaces
   ifdown wlan0
   sleep 1
   ifup wlan0
-  sleep 2
+  sleep 5
 
   _IP2=$(hostname -I) || true
   echo $_IP2
@@ -17,6 +19,7 @@ if [ ! $_IP]
     sleep 2
     cp /etc/network/interfaces.hotspot /etc/network/interfaces
     service hostapd restart &
+	service udhcpd restart &
   fi
 fi
 
