@@ -4,6 +4,7 @@
 <style type="text/css">
 #main
 {
+margin-top:50px;
 width:280px;
 margin-left:auto;
 margin-right:auto;
@@ -34,24 +35,53 @@ text-align:left;
 
 
 </style>
+
+<script style="text/javascript">
+function form_submit()
+{
+var ssid = document.getElementById('ssid');
+var form = document.getElementById('form');
+
+if (ssid.value.search(' ') > -1)
+	{
+	alert('Spaces are not permitted in the network name');
+	return;
+	}
+if (ssid.value.search('"') > -1 || ssid.value.search("'") > -1)
+	{
+	alert('Quotes and apostrophes are not allowed in the network name');
+	return;
+	}
+var message = 'You have submitted the following network credentials:\n \
+Network Name: ' + ssid.value + '\n \
+Password: ' + psk.value + '\n\n \
+This page will now become inactive. Please wait while the device \
+connects to the specified network.'
+
+form.submit();
+
+alert(message);
+}
+
+</script>
 </head>
 
 <body>
 <div id="main">
 	<br/><br/>
 	<h3>Connect to Wireless Network:</h3>
-	<form action="run_script.php" method="GET">
+	<form action="run_script.php" method="GET" id="form">
 		<table id="tab">
 			<tr>
 				<td class="label">Network Name: </td>
-				<td><input type="text" name="ssid" ></td>
+				<td><input type="text" name="ssid" id="ssid"></td>
 			</tr>
 			<tr>
 				<td class="label">Password: </td>
-				<td><input type="text" name="psk" ></td>
+				<td><input type="text" name="psk" id="psk"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><br/><input type="submit" value="Connect"></td>
+				<td colspan="2"><br/><button type="button" onclick="form_submit()">Connect</button></td>
 			</tr>
 		</table>
 	</form>
