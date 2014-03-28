@@ -29,6 +29,12 @@
 	- Save file with crtl+X, follow promtps to save to current file
 	-reboot with "sudo reboot"
 
+- Configure Raspberry Pi:
+	"sudo raspi-config" 	--> Extend file system
+				--> Advanced --> Hostname --> Change host name as desired
+				--> Reboot
+	
+
 - Update package manager:
 	"sudo apt-get update"
 
@@ -53,8 +59,6 @@
 
 - (Optional) Install xrdp for graphical remote desktop:
 	"sudo apt-get install xrdp"
-	"sudo raspi-config" 	--> enable boot to desktop
-				--> Advanced options --> set hostname as desired
 
 -Install apache and php5:
 	"sudo apt-get install apach2 php5 libapache2-mod-php5"
