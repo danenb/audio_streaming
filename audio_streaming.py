@@ -11,7 +11,11 @@ import threading
 
 #### Parameters ####
 
-server = 'http://thetinkerer.net/cgi-bin/'
+f = open('server','r')
+server = f.read(200)
+if server.find('\n') > -1:
+    server = server[:server.find('\n')]
+
 wait_time = 300
 
 #### End Parameters ####
