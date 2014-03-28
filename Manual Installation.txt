@@ -1,0 +1,110 @@
+- Download Raspbian (Wheezy) operating system from http://www.raspberrypi.org/downloads
+- Extract the zipped image file ('distribution-name.img')
+
+- Download Win32DiskImager from http://sourceforge.net/projects/win32diskimager/
+- Extract the executable from the zip file
+
+- Insert SD card into reader and run Win32DiskImager. Select raspbian image and write to card.
+
+	- Connect USB to serial between computer and raspberry pi. Insert SD card & wifi dongle into raspberry pi and apply power.
+
+
+	- Run wifi utility to connect to wifi network (Requires python installation and PySerial module https://www.python.org/download/releases/2.7/ , https://pypi.python.org/pypi/pyserial)
+
+	OR
+
+	- Connect monitor and powered USB hub with wifi dongle & keyboard (username:pi, password:raspberry)
+		"sudo nano /etc/network/interfaces"
+		Edit the file to the following:
+
+		auto lo
+		iface lo inet loopback
+		iface eth0 inet dhcp
+		allow-hotplug wlan0
+		auto wlan0
+		iface wlan0 inet dhcp
+			wpa-ssid "your network ssid"
+			wpa-psk "your network passphrase"
+
+	- Save file with crtl+X, follow promtps to save to current file
+	-reboot with "sudo reboot"
+
+- Update package manager:
+	"sudo apt-get update"
+
+- Install avahi-daemon for remote login via hostname rather than IP address:
+	"sudo apt-get install avahi-daemon"
+
+- Install mpg321 media player:
+	"sudo apt-get install mpg321"
+
+- Install python development tools:
+	"sudo apt-get install python-dev"
+
+- Install alsa-utils for audio controls:
+	"sudo apt-get install alsa-utils"
+
+- Install mplayer for ogg media:
+	"sudo apt-get install mplayer"
+
+- Configure audio output:
+	"sudo modprobe snd_bcm2835"
+	"sudo amixer cset numid=3 1"
+
+- (Optional) Install xrdp for graphical remote desktop:
+	"sudo apt-get install xrdp"
+	"sudo raspi-config" 	--> enable boot to desktop
+				--> Advanced options --> set hostname as desired
+
+-Install apache and php5:
+	"sudo apt-get install apach2 php5 libapache2-mod-php5"
+	Check install by typing Rpi's IP address into browser on the same network, or 'hostname.local' (default hostname='raspberrypi') on apple device
+
+
+-Install wireless hotspot services:
+	"sudo apt-get install hostapd udhcpd
+
+
+-Downloads scripts and configuration files from github:
+	"git clone https://github.com/danenb/audio_streaming"
+	"cd audio_streaming"
+	"sudo cp ./config-files/udhcpd.conf /etc/udhcpd.conf"
+	"sudo cp ./config-files/udhcpd /etc/default"
+	"sudo cp /etc/network/interfaces /etc/network/interfaces.wifi
+	"sudo cp ./config-files/interfaces /etc/network/interfaces.hotspot"
+	"sudo cp ./config-files/hostapd.conf /etc/hostapd"
+	"sudo cp ./config-files/hostapd /etc/default"
+	"sudo cp ./config-files/sysctl.conf /etc"
+	"sudo cp ./config-files/iptables.ipv4.nat /etc"
+	"sudo touch /var/lib/misc/udhcpd.leases"
+
+
+-Configure wireless hotspot:
+	"sudo nano /etc/hostapd/hostapd.conf"
+	change ssid and passphrase as desired
+
+
+-Change file permissions:
+	"sudo chmod +x ./network_connect"
+	"sudo chmod +x ./write_interfaces"
+	"sudo echo "www-data ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers"
+
+-Configure crontab:
+	"sudo echo '@reboot sudo /home/pi/audio_streaming/network_connect' >> /tmp/crontab.temp"
+	"sudo echo '@reboot sudo python /home/pi/audio_streaming/audio_streaming.py' >> /tmp/crontab.temp"
+	"sudo echo '10 * * * * bash /home/pi/audio_streaming/check_script' >> /tmp/crontab.temp"
+	"sudo crontab /tmp/crontab.temp"
+
+-Configure local server scripts:
+	"sudo cp ./config-files/index.html /var/www"
+	"sudo cp ./config-files/run_script.php /var/www"
+	"sudo mkdir /var/www/server"
+	"sudo cp ./config-files/server.html /var/www/server/index.html"
+	"sudo cp ./config-files/set_server.php /var/www/server"
+
+
+-Create temporary download directory:
+	"mkdir ./downloaded"
+
+Reboot:
+	"sudo reboot"
