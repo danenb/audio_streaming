@@ -11,7 +11,7 @@ import threading
 
 #### Parameters ####
 
-f = open('server','r')
+f = open('/home/pi/audio_streaming/server','r')
 server = f.read(200)
 if server.find('\n') > -1:
     server = server[:server.find('\n')]
@@ -59,7 +59,7 @@ def play(arg1, arg2):
     if len(file_list) > 0:
         for i in range(0,len(file_list)):
             GPIO.output(12, 1)
-            process = subprocess.Popen(['mpg321','-g','20',file_list[i]], stderr=subprocess.PIPE)
+            process = subprocess.Popen(['mpg321','-g','80',file_list[i]], stderr=subprocess.PIPE)
             PID = process.pid
             playing = True
             paused = False
