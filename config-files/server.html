@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>Wireless Network Connection</title>
+<style type="text/css">
+#main
+{
+margin-top:50px;
+width:280px;
+margin-left:auto;
+margin-right:auto;
+padding:20px 60px 50px 60px;
+border:1px solid #888888;
+border-radius:15px;
+box-shadow: -10px 10px 10px #888888;
+
+background: -moz-linear-gradient(top,  rgba(178,225,255,0.4) 0%, rgba(102,182,252,0.55) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(178,225,255,0.4)), color-stop(100%,rgba(102,182,252,0.55))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(178,225,255,0.4) 0%,rgba(102,182,252,0.55) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(178,225,255,0.4) 0%,rgba(102,182,252,0.55) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(178,225,255,0.4) 0%,rgba(102,182,252,0.55) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(178,225,255,0.4) 0%,rgba(102,182,252,0.55) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#66b2e1ff', endColorstr='#8c66b6fc',GradientType=0 ); /* IE6-9 */
+
+}
+
+#tab
+{
+text-align:center;
+}
+
+.label
+{
+text-align:left;
+}
+
+
+</style>
+
+<script style="text/javascript">
+function form_submit()
+{
+var url = document.getElementById('url').value;
+var form = document.getElementById('form');
+
+if (url.lastIndexOf('/') != url.length -1)
+	{
+	url = url + '/';
+	document.getElementById('url').value = url;
+	}
+
+var message = 'Updating the media server URL to:\n\n'+url;
+
+alert(message);
+form.submit();
+
+}
+
+</script>
+</head>
+
+<body>
+<div id="main">
+	<br/><br/>
+	<h3>Media Server:</h3>
+	<form action="set_server.php" method="GET" id="form">
+		<table id="tab">
+			<tr>
+				<td class="label">Server URL: </td>
+				<td><input type="text" name="url" id="url"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><br/><button type="button" onclick="form_submit()">Update Server URL</button></td>
+			</tr>
+		</table>
+	</form>
+
+</div>
+</body>
+</html>
