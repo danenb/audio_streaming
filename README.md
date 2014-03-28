@@ -1,7 +1,7 @@
 audio_streaming
 ===============
 
-Configures a Raspberry Pi to download mp3 audio media from a web server using a wifi dongle.
+Configures a Raspberry Pi to download mp3 media from a web server using a wifi dongle.
 
 
 
@@ -21,7 +21,7 @@ Features:
 Installation:
 -------------
 
-* Recommended on a fresh installation of Raspbian (http://www.raspberrypi.org/downloads).
+* Recommended on a fresh installation of Raspbian (http://www.raspberrypi.org/downloads)
 
 * Ensure a steady internet connection
 
