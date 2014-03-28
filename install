@@ -88,6 +88,9 @@ then
 	
 	cp ./config-files/index.html /var/www
 	cp ./config-files/run_script.php /var/www
+	mkdir /var/www/server
+	cp ./config-files/server.html /var/www/server/index.html
+	cp ./config-files/set_server.php /var/www/server
 	
 	mkdir ./downloaded
 
