@@ -34,14 +34,23 @@ Installation:
 
 auto lo
 
+
 iface lo inet loopback
+
 iface eth0 inet dhcp
 
+
 allow-hotplug wlan0
+
 auto wlan0
+
 iface wlan0 inet dhcp
+
   wpa-ssid "your network ssid"
+  
   wpa-psk "your network passphrase"
+  
+  
   
   - Save the file by pressing ctrl+x, follow the prompts to save to current file
   - Reboot with "sudo reboot"
